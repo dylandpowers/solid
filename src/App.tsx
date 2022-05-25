@@ -6,7 +6,7 @@ import { TypographyLarge } from './components/Typography';
 const App: Component = () => {
   return (
     <Home>
-      <TypographyLarge>Hello, Dylan</TypographyLarge>
+      <TypographyLarge underline>Hello, Dylan</TypographyLarge>
       <TypographyLarge>We have been trying to contact you about your car's extended warranty.</TypographyLarge>
       <SquareContainer />
     </Home>

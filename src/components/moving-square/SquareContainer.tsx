@@ -1,4 +1,5 @@
-import { Component, createSignal, onMount } from "solid-js";
+import { Component, createSignal, onMount, Show } from "solid-js";
+import pepe from "../../assets/pepe.png";
 
 type Position = {
   x: number;
@@ -16,6 +17,7 @@ const DEFAULT_POSITION: Position = { x: 0, y : 0 };
 
 const SquareContainer: Component = () => {
   const [squareCoordinates, setSquareCoordinates] = createSignal<Position>(DEFAULT_POSITION);
+  const [isSquareShown, setIsSquareShown] = createSignal<boolean>(true);
   let boundary: Square;
   let divRef: HTMLDivElement;
  
@@ -30,7 +32,7 @@ const SquareContainer: Component = () => {
       boundary.bottom - 48,
       Math.floor(Math.random() * (boundary.bottom - boundary.top)) + boundary.top);
     setSquareCoordinates({ x: newX, y: newY });
-  }, 500);
+  }, 1000);
 
   onMount(() => {
     if (!divRef) {
@@ -43,11 +45,16 @@ const SquareContainer: Component = () => {
   });
 
   return (
-    <div class="flex-1" ref={divRef}>
-      <span class="bg-secondary w-12 h-12 absolute" style={{ 
-        left: `${squareCoordinates().x}px`,
-        top: `${squareCoordinates().y}px`
-      }}></span>
+    <div class="flex-1 flex justify-center" ref={divRef}>
+      <Show when={isSquareShown()}>
+        <span class="bg-secondary w-12 h-12 absolute rounded-lg" style={{ 
+          left: `${squareCoordinates().x}px`,
+          top: `${squareCoordinates().y}px`
+        }} onClick={() => setIsSquareShown(false)}></span>
+      </Show>
+      <Show when={!isSquareShown()}>
+        <img src={pepe} />
+      </Show>
     </div>
   );
 }
