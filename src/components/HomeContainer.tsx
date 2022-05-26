@@ -8,6 +8,6 @@ const HomeContainer: ParentComponent = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default HomeContainer;

@@ -1,4 +1,4 @@
-import { Component, createSignal, onMount, Show } from "solid-js";
+import { Component, createSignal, onCleanup, onMount, Show } from "solid-js";
 import pepe from "../../assets/pepe.png";
 
 type Position = {
@@ -21,7 +21,7 @@ const SquareContainer: Component = () => {
   let boundary: Square;
   let divRef: HTMLDivElement;
  
-  setInterval(() => {
+  const interval = setInterval(() => {
     // since the coordinate is the top left, we never want to exceed the boundaries, so subtract
     // 48px (which is equivalent to w-12 and h-12 in tailwind)
     const newX = Math.min(
@@ -33,6 +33,8 @@ const SquareContainer: Component = () => {
       Math.floor(Math.random() * (boundary.bottom - boundary.top)) + boundary.top);
     setSquareCoordinates({ x: newX, y: newY });
   }, 1000);
+
+  onCleanup(() => clearInterval(interval));
 
   onMount(() => {
     if (!divRef) {
@@ -53,10 +55,10 @@ const SquareContainer: Component = () => {
         }} onClick={() => setIsSquareShown(false)}></span>
       </Show>
       <Show when={!isSquareShown()}>
-        <img src={pepe} />
+        <img src={pepe} alt="Cool AF Pepe"/>
       </Show>
     </div>
   );
-}
+};
 
 export default SquareContainer;

@@ -1,13 +1,12 @@
 import type { Component } from 'solid-js';
+import Header from './components/Header';
 import Home from './components/HomeContainer';
 import SquareContainer from './components/moving-square/SquareContainer';
-import { TypographyLarge } from './components/Typography';
 
 const App: Component = () => {
   return (
     <Home>
-      <TypographyLarge underline>Hello, Dylan</TypographyLarge>
-      <TypographyLarge>We have been trying to contact you about your car's extended warranty.</TypographyLarge>
+      <Header />
       <SquareContainer />
     </Home>
   );
