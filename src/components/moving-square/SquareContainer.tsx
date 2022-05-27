@@ -1,5 +1,6 @@
-import { Component, createSignal, onCleanup, onMount, Show } from "solid-js";
+import { Component, createSignal, onCleanup, onMount, Show, useContext } from "solid-js";
 import pepe from "../../assets/pepe.png";
+import { TimerContext } from "../../store/timer";
 
 type Position = {
   x: number;
@@ -18,6 +19,7 @@ const DEFAULT_POSITION: Position = { x: 0, y : 0 };
 const SquareContainer: Component = () => {
   const [squareCoordinates, setSquareCoordinates] = createSignal<Position>(DEFAULT_POSITION);
   const [isSquareShown, setIsSquareShown] = createSignal<boolean>(true);
+  const { stopTimer } = useContext(TimerContext);
   let boundary: Square;
   let divRef: HTMLDivElement;
  
@@ -52,7 +54,10 @@ const SquareContainer: Component = () => {
         <span class="bg-secondary w-12 h-12 absolute rounded-lg" style={{ 
           left: `${squareCoordinates().x}px`,
           top: `${squareCoordinates().y}px`
-        }} onClick={() => setIsSquareShown(false)}></span>
+        }} onClick={() => {
+          setIsSquareShown(false);
+          stopTimer();
+        }}></span>
       </Show>
       <Show when={!isSquareShown()}>
         <img src={pepe} alt="Cool AF Pepe"/>

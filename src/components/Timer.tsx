@@ -1,16 +1,15 @@
-import { Component, createMemo, createSignal, onCleanup } from "solid-js";
+import { Component, createMemo, onCleanup, onMount, useContext } from "solid-js";
+import { TimerContext } from "../store/timer";
 import { TypographyMedium } from "./Typography";
 
 const Timer: Component = () => {
-  const [timeElapsed, setTimeElapsed] = createSignal<number>(0);
+  const { state, startTimer, stopTimer } = useContext(TimerContext);
 
-  const interval = setInterval(() => {
-    setTimeElapsed((prev) => prev + 1);
-  }, 1000);
-  onCleanup(() => clearInterval(interval));
+  onMount(() => startTimer());
+  onCleanup(() => stopTimer());
 
   const formattedTime = createMemo(() => {
-    const time = timeElapsed();
+    const time = state.value;
     return `${Math.floor(time / 60)}:${(time % 60).toString().padStart(2, '0')}`;
   });
 
