@@ -2,16 +2,16 @@ import type { Component } from 'solid-js';
 import Header from './components/Header';
 import Home from './components/HomeContainer';
 import SquareContainer from './components/moving-square/SquareContainer';
-import { store, TimerContext } from './store/timer';
+import Providers from './store/Providers';
 
 const App: Component = () => {
   return (
-    <Home>
-      <TimerContext.Provider value={store}>
+    <Providers>
+      <Home>
         <Header />
         <SquareContainer />
-      </TimerContext.Provider>
-    </Home>
+      </Home>
+    </Providers>
   );
 };
 

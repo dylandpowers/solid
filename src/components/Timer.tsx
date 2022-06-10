@@ -5,8 +5,8 @@ import { TypographyMedium } from "./Typography";
 const Timer: Component = () => {
   const { state, startTimer, stopTimer } = useContext(TimerContext);
 
-  onMount(() => startTimer());
-  onCleanup(() => stopTimer());
+  onMount(startTimer);
+  onCleanup(stopTimer);
 
   const formattedTime = createMemo(() => {
     const time = state.value;

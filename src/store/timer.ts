@@ -1,12 +1,12 @@
 import { createContext } from "solid-js";
 import { createStore, produce, StoreNode } from "solid-js/store";
 
-export interface TimerState extends StoreNode {
+interface TimerState extends StoreNode {
   value: number;
   intervalId?: number;
 }
 
-export type TimerStore = {
+type TimerStore = {
   state: TimerState;
   startTimer: () => void;
   stopTimer: () => void;
@@ -27,7 +27,8 @@ export const store: TimerStore = {
     }));
   },
   stopTimer() {
-    clearInterval(state.intervalId!);
+    // intervalId will always exist here, but I hate warnings
+    clearInterval(state.intervalId ?? 0);
     setState(produce<TimerState>((s) => {
       delete s.intervalId;
     }));

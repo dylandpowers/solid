@@ -1,5 +1,6 @@
 import { Component, createSignal, onCleanup, onMount, Show, useContext } from "solid-js";
 import pepe from "../../assets/pepe.png";
+import { ScoreContext } from "../../store/scores";
 import { TimerContext } from "../../store/timer";
 
 type Position = {
@@ -19,7 +20,8 @@ const DEFAULT_POSITION: Position = { x: 0, y : 0 };
 const SquareContainer: Component = () => {
   const [squareCoordinates, setSquareCoordinates] = createSignal<Position>(DEFAULT_POSITION);
   const [isSquareShown, setIsSquareShown] = createSignal<boolean>(true);
-  const { stopTimer } = useContext(TimerContext);
+  const { state, stopTimer } = useContext(TimerContext);
+  const { insertScore } = useContext(ScoreContext);
   let boundary: Square;
   let divRef: HTMLDivElement;
  
@@ -57,6 +59,7 @@ const SquareContainer: Component = () => {
         }} onClick={() => {
           setIsSquareShown(false);
           stopTimer();
+          insertScore(state.value);
         }}></span>
       </Show>
       <Show when={!isSquareShown()}>
