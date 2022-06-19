@@ -27,10 +27,13 @@ export const store: TimerStore = {
     }));
   },
   stopTimer() {
-    // intervalId will always exist here, but I hate warnings
-    clearInterval(state.intervalId ?? 0);
+    if (state.intervalId) {
+      clearInterval(state.intervalId);
+    }
+    
     setState(produce<TimerState>((s) => {
       delete s.intervalId;
+      s.value = 0;
     }));
   }
 };

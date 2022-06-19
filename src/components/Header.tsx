@@ -1,4 +1,4 @@
-import { Component } from "solid-js";
+import { Component, Show } from "solid-js";
 import Timer from "./Timer";
 import { TypographyLarge } from "./Typography";
 
@@ -7,7 +7,9 @@ const Header: Component = () => {
     <>
       <div class="flex justify-evenly border-b py-8 items-center">
         <TypographyLarge>Hello, Dylan</TypographyLarge>
-        <Timer />
+        <Show when={window.location.pathname === "/"}>
+          <Timer />
+        </Show>
       </div>
       <TypographyLarge>We have been trying to reach you about your car's extended warranty.</TypographyLarge>
     </>
